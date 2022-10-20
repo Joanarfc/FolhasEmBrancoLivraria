@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="FolhasEmBrancoLivraria.Business.Models.Endereco">
+    <Position X="1" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAACIEEAAAAACAAAAAAAAAAAACAAABAAg=</HashCode>
+      <FileName>Models\Endereco.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Fornecedor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FolhasEmBrancoLivraria.Business.Models.Entidade">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Entidade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolhasEmBrancoLivraria.Business.Models.Fornecedor">
+    <Position X="6.25" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAMAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAEAA=</HashCode>
+      <FileName>Models\Fornecedor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TipoFornecedor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FolhasEmBrancoLivraria.Business.Models.Produto">
+    <Position X="3.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAAAABAAAAEAAAAAAEAAAAABAAAAACAAEAAAA=</HashCode>
+      <FileName>Models\Produto.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Fornecedor" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="FolhasEmBrancoLivraria.Business.Models.TipoFornecedor">
+    <Position X="10.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\TipoFornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
