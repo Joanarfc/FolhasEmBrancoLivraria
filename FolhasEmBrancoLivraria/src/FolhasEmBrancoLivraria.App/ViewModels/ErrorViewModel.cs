@@ -1,6 +1,6 @@
 using System;
 
-namespace FolhasEmBrancoLivraria.App.Models
+namespace FolhasEmBrancoLivraria.App.ViewModels
 {
     public class ErrorViewModel
     {

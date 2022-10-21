@@ -1,4 +1,4 @@
-﻿using FolhasEmBrancoLivraria.App.Models;
+﻿using FolhasEmBrancoLivraria.App.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
