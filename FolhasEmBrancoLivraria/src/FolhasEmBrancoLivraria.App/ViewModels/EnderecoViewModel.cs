@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FolhasEmBrancoLivraria.App.ViewModels
@@ -20,6 +21,7 @@ namespace FolhasEmBrancoLivraria.App.ViewModels
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(8, ErrorMessage = "O campo {0} precisa ter {1} caracteres", MinimumLength = 8)]
+        [DisplayName("CEP")]
         public string Cep { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
