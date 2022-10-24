@@ -25,7 +25,7 @@ namespace FolhasEmBrancoLivraria.App.ViewModels
         public string Descricao { get; set; }
 
         [DisplayName("Imagem do Produto")]
-        public IFormFile ImagemUpload { get; set; }
+        //public IFormFile ImagemUpload { get; set; }
         public string Imagem { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
