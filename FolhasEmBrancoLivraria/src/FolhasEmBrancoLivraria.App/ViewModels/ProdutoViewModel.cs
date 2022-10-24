@@ -1,6 +1,8 @@
 ﻿using FolhasEmBrancoLivraria.Business.Models;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,7 +27,7 @@ namespace FolhasEmBrancoLivraria.App.ViewModels
         public string Descricao { get; set; }
 
         [DisplayName("Imagem do Produto")]
-        //public IFormFile ImagemUpload { get; set; }
+        public IFormFile ImagemUpload { get; set; }
         public string Imagem { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
@@ -39,5 +41,6 @@ namespace FolhasEmBrancoLivraria.App.ViewModels
 
         /* EF RELATION */
         public FornecedorViewModel Fornecedor { get; set; }
+        public IEnumerable<FornecedorViewModel> Fornecedores { get; set; }
     }
 }
