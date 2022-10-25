@@ -32,7 +32,7 @@ namespace FolhasEmBrancoLivraria.Data.Repository
 
         public async Task<List<TEntity>> ObterTodos()
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.AsNoTracking().ToListAsync();
         }
         public async Task Adicionar(TEntity entity)
         {
