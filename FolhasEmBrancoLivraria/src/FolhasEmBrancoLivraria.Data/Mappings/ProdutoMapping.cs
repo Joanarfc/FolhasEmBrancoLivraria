@@ -15,6 +15,10 @@ namespace FolhasEmBrancoLivraria.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
+            builder.Property(p => p.Autor)
+                .IsRequired()
+                .HasColumnType("varchar(200)");
+
             builder.Property(p => p.Descricao)
                 .IsRequired()
                 .HasColumnType("varchar(1000)");

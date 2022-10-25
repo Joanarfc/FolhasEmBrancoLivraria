@@ -11,6 +11,8 @@ namespace FolhasEmBrancoLivraria.Business.Models
 
         public string Nome { get; set; }
 
+        public string Autor { get; set; }
+
         public string Descricao { get; set; }
 
         public string Imagem { get; set; }

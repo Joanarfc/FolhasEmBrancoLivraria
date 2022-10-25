@@ -6,6 +6,8 @@ using FolhasEmBrancoLivraria.App.ViewModels;
 using FolhasEmBrancoLivraria.Business.Interfaces;
 using AutoMapper;
 using FolhasEmBrancoLivraria.Business.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace FolhasEmBrancoLivraria.App.Controllers
 {
@@ -52,11 +54,21 @@ namespace FolhasEmBrancoLivraria.App.Controllers
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             produtoViewModel = await PopularFornecedores(produtoViewModel);
+
             if (!ModelState.IsValid) return View(produtoViewModel);
+
+            var imgPrefix = Guid.NewGuid() + "_";
+
+            if(! await UploadFicheiro(produtoViewModel.ImagemUpload, imgPrefix))
+            {
+                return View(produtoViewModel);
+            }
+
+            produtoViewModel.Imagem = imgPrefix + produtoViewModel.ImagemUpload.FileName;
 
             await _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoViewModel));
 
-            return View(produtoViewModel);
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(Guid id)
@@ -115,6 +127,25 @@ namespace FolhasEmBrancoLivraria.App.Controllers
         {
             produtoViewModel.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
             return produtoViewModel;
+        }
+
+        private async Task<bool> UploadFicheiro(IFormFile file, string imgPrefix)
+        {
+            if(file.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefix + file.FileName);
+            
+            if(System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Um ficheiro com o mesmo nome já existe!");
+                return false;
+            }
+            using(var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return true;
+
         }
     }
 }

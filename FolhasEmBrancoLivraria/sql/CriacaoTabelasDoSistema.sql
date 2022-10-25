@@ -64,3 +64,12 @@ VALUES (N'20221020204717_TabelasDoSistema', N'3.1.30');
 
 GO
 
+ALTER TABLE [Produtos] ADD [Autor] varchar(200) NOT NULL DEFAULT '';
+
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221025123135_AdicaoAutorTabelaProdutos', N'3.1.30');
+
+GO
+
