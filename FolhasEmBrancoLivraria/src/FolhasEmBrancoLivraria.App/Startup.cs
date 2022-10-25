@@ -1,4 +1,5 @@
 using FolhasEmBrancoLivraria.App.Data;
+using FolhasEmBrancoLivraria.App.Extensions;
 using FolhasEmBrancoLivraria.Business.Interfaces;
 using FolhasEmBrancoLivraria.Data.Context;
 using FolhasEmBrancoLivraria.Data.Repository;
@@ -6,12 +7,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Globalization;
+using static FolhasEmBrancoLivraria.App.Extensions.MoedaAttribute;
 
 namespace FolhasEmBrancoLivraria.App
 {
@@ -76,6 +79,7 @@ namespace FolhasEmBrancoLivraria.App
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

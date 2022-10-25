@@ -1,4 +1,5 @@
-﻿using FolhasEmBrancoLivraria.Business.Models;
+﻿using FolhasEmBrancoLivraria.App.Extensions;
+using FolhasEmBrancoLivraria.Business.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 using System;
@@ -35,6 +36,7 @@ namespace FolhasEmBrancoLivraria.App.ViewModels
         public IFormFile ImagemUpload { get; set; }
         public string Imagem { get; set; }
 
+        [Moeda]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Valor { get; set; }
 
