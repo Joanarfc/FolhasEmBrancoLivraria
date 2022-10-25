@@ -59,7 +59,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
 
             var imgPrefix = Guid.NewGuid() + "_";
 
-            if(! await UploadFicheiro(produtoViewModel.ImagemUpload, imgPrefix))
+            if (!await UploadFicheiro(produtoViewModel.ImagemUpload, imgPrefix))
             {
                 return View(produtoViewModel);
             }
@@ -86,9 +86,34 @@ namespace FolhasEmBrancoLivraria.App.Controllers
         public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
         {
             if (id != produtoViewModel.Id) return NotFound();
+            
+            var atualizacaoProduto = await ObterProduto(id);
+
+            produtoViewModel.Fornecedor = atualizacaoProduto.Fornecedor;
+
+            produtoViewModel.Imagem = atualizacaoProduto.Imagem;
 
             if (!ModelState.IsValid) return View(produtoViewModel);
-            await _produtoRepository.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+
+            if(produtoViewModel.ImagemUpload != null)
+            {
+                var imgPrefix = Guid.NewGuid() + "_";
+
+                if (!await UploadFicheiro(produtoViewModel.ImagemUpload, imgPrefix))
+                {
+                    return View(produtoViewModel);
+                }
+                atualizacaoProduto.Imagem = imgPrefix + produtoViewModel.ImagemUpload.FileName;
+            }
+
+            atualizacaoProduto.Nome = produtoViewModel.Nome;
+            atualizacaoProduto.Autor = produtoViewModel.Autor;
+            atualizacaoProduto.Descricao = produtoViewModel.Descricao;
+            atualizacaoProduto.Valor = produtoViewModel.Valor;
+            atualizacaoProduto.Ano = produtoViewModel.Ano;
+            atualizacaoProduto.IsAtivo = produtoViewModel.IsAtivo;
+
+            await _produtoRepository.Atualizar(_mapper.Map<Produto>(atualizacaoProduto));
             return RedirectToAction("Index");
         }
 
@@ -112,7 +137,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
 
             if (produtoViewModel == null) return NotFound();
             await _produtoRepository.Remover(id);
-           
+
             return RedirectToAction("Index");
         }
 
@@ -131,16 +156,16 @@ namespace FolhasEmBrancoLivraria.App.Controllers
 
         private async Task<bool> UploadFicheiro(IFormFile file, string imgPrefix)
         {
-            if(file.Length <= 0) return false;
+            if (file.Length <= 0) return false;
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefix + file.FileName);
-            
-            if(System.IO.File.Exists(path))
+
+            if (System.IO.File.Exists(path))
             {
                 ModelState.AddModelError(string.Empty, "Um ficheiro com o mesmo nome já existe!");
                 return false;
             }
-            using(var stream = new FileStream(path, FileMode.Create))
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
