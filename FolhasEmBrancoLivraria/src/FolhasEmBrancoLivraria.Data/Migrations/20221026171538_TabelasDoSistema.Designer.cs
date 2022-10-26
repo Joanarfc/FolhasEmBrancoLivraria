@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FolhasEmBrancoLivraria.Data.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20221020204717_TabelasDoSistema")]
+    [Migration("20221026171538_TabelasDoSistema")]
     partial class TabelasDoSistema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,10 @@ namespace FolhasEmBrancoLivraria.Data.Migrations
                     b.Property<string>("Ano")
                         .IsRequired()
                         .HasColumnType("varchar(4)");
+
+                    b.Property<string>("Autor")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

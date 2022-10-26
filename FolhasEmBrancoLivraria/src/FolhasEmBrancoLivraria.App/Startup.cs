@@ -1,32 +1,29 @@
 using FolhasEmBrancoLivraria.App.Configurations;
-using FolhasEmBrancoLivraria.App.Data;
-using FolhasEmBrancoLivraria.App.Extensions;
-using FolhasEmBrancoLivraria.Business.Interfaces;
 using FolhasEmBrancoLivraria.Data.Context;
-using FolhasEmBrancoLivraria.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Globalization;
-using static FolhasEmBrancoLivraria.App.Extensions.MoedaAttribute;
 
 namespace FolhasEmBrancoLivraria.App
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-        }
+            _env = env;
 
-        public IConfiguration Configuration { get; }
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"app.settings.{env.EnvironmentName}.json", true, true)
+                .AddEnvironmentVariables();
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {

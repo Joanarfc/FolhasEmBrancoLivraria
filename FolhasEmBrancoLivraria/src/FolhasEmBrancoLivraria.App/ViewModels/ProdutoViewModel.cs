@@ -1,7 +1,5 @@
 ﻿using FolhasEmBrancoLivraria.App.Extensions;
-using FolhasEmBrancoLivraria.Business.Models;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

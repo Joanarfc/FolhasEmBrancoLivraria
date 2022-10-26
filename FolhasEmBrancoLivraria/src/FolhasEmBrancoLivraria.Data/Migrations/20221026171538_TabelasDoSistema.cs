@@ -54,6 +54,7 @@ namespace FolhasEmBrancoLivraria.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     FornecedorId = table.Column<Guid>(nullable: false),
                     Nome = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Autor = table.Column<string>(type: "varchar(200)", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(1000)", nullable: false),
                     Imagem = table.Column<string>(type: "varchar(100)", nullable: false),
                     Valor = table.Column<decimal>(nullable: false),

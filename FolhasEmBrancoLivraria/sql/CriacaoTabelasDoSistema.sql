@@ -40,6 +40,7 @@ CREATE TABLE [Produtos] (
     [Id] uniqueidentifier NOT NULL,
     [FornecedorId] uniqueidentifier NOT NULL,
     [Nome] varchar(200) NOT NULL,
+    [Autor] varchar(200) NOT NULL,
     [Descricao] varchar(1000) NOT NULL,
     [Imagem] varchar(100) NOT NULL,
     [Valor] decimal(18,2) NOT NULL,
@@ -60,16 +61,7 @@ CREATE INDEX [IX_Produtos_FornecedorId] ON [Produtos] ([FornecedorId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20221020204717_TabelasDoSistema', N'3.1.30');
-
-GO
-
-ALTER TABLE [Produtos] ADD [Autor] varchar(200) NOT NULL DEFAULT '';
-
-GO
-
-INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20221025123135_AdicaoAutorTabelaProdutos', N'3.1.30');
+VALUES (N'20221026171538_TabelasDoSistema', N'3.1.30');
 
 GO
 
