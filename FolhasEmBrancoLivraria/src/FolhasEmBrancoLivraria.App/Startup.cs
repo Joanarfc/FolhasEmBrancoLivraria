@@ -1,3 +1,4 @@
+using FolhasEmBrancoLivraria.App.Configurations;
 using FolhasEmBrancoLivraria.App.Data;
 using FolhasEmBrancoLivraria.App.Extensions;
 using FolhasEmBrancoLivraria.Business.Interfaces;
@@ -42,44 +43,9 @@ namespace FolhasEmBrancoLivraria.App
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllersWithViews(o =>
-            {
-                string mensagemValorInvalido = "O valor preenchido é inválido para este campo.";
-                string mensagemValorNumerico = "O campo deve ser numérico.";
-                string mensagemValorObrigatorio = "Este campo precisa ser preenchido.";
-                string mensagemBodyObrigatorio = "É necessário que o body não esteja vazio.";
-
-
-                o.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor((x, y)
-                    => mensagemValorInvalido);
-                o.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor(x
-                    => mensagemValorObrigatorio);
-                o.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(()
-                    => mensagemValorObrigatorio);
-                o.ModelBindingMessageProvider.SetMissingRequestBodyRequiredValueAccessor(()
-                    => mensagemBodyObrigatorio);
-                o.ModelBindingMessageProvider.SetNonPropertyAttemptedValueIsInvalidAccessor((x)
-                    => mensagemValorInvalido);
-                o.ModelBindingMessageProvider.SetNonPropertyUnknownValueIsInvalidAccessor(()
-                    => mensagemValorInvalido);
-                o.ModelBindingMessageProvider.SetNonPropertyValueMustBeANumberAccessor(()
-                    => mensagemValorNumerico);
-                o.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor((x)
-                    => mensagemValorInvalido);
-                o.ModelBindingMessageProvider.SetValueIsInvalidAccessor((x)
-                    => mensagemValorInvalido);
-                o.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(x
-                    => mensagemValorNumerico);
-                o.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x
-                    => mensagemValorObrigatorio);
-
-            });
+            services.AddMvcConfiguration();
             services.AddRazorPages();
-            services.AddScoped<DataDbContext>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
-            services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
+            services.ResolveDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
