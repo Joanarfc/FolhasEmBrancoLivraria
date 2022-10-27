@@ -24,12 +24,13 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             _mapper = mapper;
         }
 
-
+        [Route("lista-de-fornecedores")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
+        [Route("detalhes-de-fornecedores/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
@@ -42,11 +43,13 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [Route("novo-fornecedor")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Route("novo-fornecedor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FornecedorViewModel fornecedorViewModel)
@@ -61,6 +64,8 @@ namespace FolhasEmBrancoLivraria.App.Controllers
 
         }
 
+
+        [Route("editar-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorProdutosEndereco(id);
@@ -72,6 +77,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [Route("editar-fornecedor/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, FornecedorViewModel fornecedorViewModel)
@@ -88,6 +94,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
 
         }
 
+        [Route("eliminar-fornecedor/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
@@ -99,6 +106,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [Route("eliminar-fornecedor/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -109,6 +117,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("obter-endereco/{id:guid}")]
         public async Task<IActionResult> ObterEndereco(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
@@ -121,7 +130,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return PartialView("_DetalhesEndereco", fornecedorViewModel);
         }
 
-
+        [Route("atualizar-endereco/{id:guid}")]
         public async Task<IActionResult> AtualizarEndereco(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
@@ -132,6 +141,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedorViewModel.Endereco });
         }
 
+        [Route("atualizar-endereco/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)

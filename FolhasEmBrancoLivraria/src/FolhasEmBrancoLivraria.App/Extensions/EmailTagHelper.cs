@@ -10,9 +10,9 @@ namespace FolhasEmBrancoLivraria.App.Extensions
         {
             output.TagName = "a";
             var content = await output.GetChildContentAsync();
-            var emailTo = content.GetContent() + "@" + EmailDomain;
+            var emailTo = content.GetContent() + "livraria@" + EmailDomain;
             output.Attributes.SetAttribute("href", "mailto:" + emailTo);
-            output.Content.SetContent("Envie-nos um email");
+            output.Content.SetContent(emailTo);
         }
     }
 }

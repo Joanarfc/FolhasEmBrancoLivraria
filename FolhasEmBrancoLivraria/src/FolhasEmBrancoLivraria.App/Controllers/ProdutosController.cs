@@ -25,12 +25,13 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             _mapper = mapper;
         }
 
-
+        [Route("lista-de-produtos")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
         }
 
+        [Route("detalhes-de-produtos/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
@@ -43,12 +44,14 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return View(produtoViewModel);
         }
 
+        [Route("novo-produto")]
         public async Task<IActionResult> Create()
         {
             var produtoViewModel = await PopularFornecedores(new ProdutoViewModel());
             return View(produtoViewModel);
         }
 
+        [Route("novo-produto")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
@@ -71,6 +74,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("editar-produto/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
@@ -81,6 +85,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return View(produtoViewModel);
         }
 
+        [Route("editar-produto/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
@@ -117,6 +122,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("eliminar-produto/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
@@ -129,6 +135,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             return View(produtoViewModel);
         }
 
+        [Route("eliminar-produto/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -158,7 +165,7 @@ namespace FolhasEmBrancoLivraria.App.Controllers
         {
             if (file.Length <= 0) return false;
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefix + file.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens/livros", imgPrefix + file.FileName);
 
             if (System.IO.File.Exists(path))
             {

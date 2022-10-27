@@ -10,7 +10,7 @@
 <p>
     <a class="btn btn-info" asp-action="Create">Criar Fornecedor</a>
 </p>
-<table class="table table-hover">
+<table class="table table-hover table-striped">
     <thead class="thead-dark">
         <tr>
             <th>
@@ -36,12 +36,22 @@
                     @this.CpfCnpjFormatacao(item.TipoFornecedor, item.Documento)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsAtivo)
+                    
+                        @if (item.IsAtivo == true)
+                        {
+                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                        }
+                        else {
+                        <i class="fa fa-square-o" aria-hidden="true">@Html.DisplayFor(modelItem => item.IsAtivo)</i>
+                        }
+
                 </td>
                 <td>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search"></span></a>
-                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span></a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
+                    <div id="buttons">
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search"></span></a>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span></a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
+                    </div>
                 </td>
             </tr>
         }

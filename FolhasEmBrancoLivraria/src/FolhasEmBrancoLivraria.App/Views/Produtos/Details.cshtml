@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 400px"/>
+        <img src="~/imagens/livros/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 400px"/>
     </div>
     <div class="col-md-6">
     <dl class="row">
@@ -46,7 +46,15 @@
             @Html.DisplayNameFor(model => model.IsAtivo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsAtivo)
+                @if (Model.IsAtivo == true)
+                {
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                }
+                else
+                {
+                    <i class="fa fa-square-o" aria-hidden="true">@Html.DisplayFor(model => model.IsAtivo)</i>
+                }
+            @*@Html.DisplayFor(model => model.IsAtivo)*@
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Fornecedor)

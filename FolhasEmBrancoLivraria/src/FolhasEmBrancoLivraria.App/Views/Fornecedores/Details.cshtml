@@ -10,30 +10,37 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-4">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Nome) 
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Documento)
         </dt>
         <dd class="col-sm-8">
             @this.CpfCnpjFormatacao(Model.TipoFornecedor, Model.Documento)
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.TipoFornecedor)
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayTextFor(model => model.TipoFornecedor)
 
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IsAtivo)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayFor(model => model.IsAtivo)
+            @if (Model.IsAtivo == true)
+            {
+                <i class="fa fa-check-square" aria-hidden="true"></i>
+            }
+            else
+            {
+                <i class="fa fa-square-o" aria-hidden="true">@Html.DisplayFor(model => model.IsAtivo)</i>
+            }
         </dd>
     </dl>
 </div>
@@ -41,6 +48,27 @@
     <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
     <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
 </div>
-<div>
+
+<div id="EnderecoTarget">
     <partial name="_DetalhesEndereco" />
 </div>
+
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            SetModal();
+        });
+    </script>
+}
