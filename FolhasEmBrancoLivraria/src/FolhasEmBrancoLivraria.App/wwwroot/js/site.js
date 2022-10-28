@@ -42,3 +42,7 @@
         }
     });
 }
+
+$(document).ready(function () {
+    $("#msgbox").fadeOut(2500);
+});

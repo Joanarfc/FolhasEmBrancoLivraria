@@ -1,5 +1,7 @@
 ﻿using FolhasEmBrancoLivraria.App.Extensions;
 using FolhasEmBrancoLivraria.Business.Interfaces;
+using FolhasEmBrancoLivraria.Business.Notifications;
+using FolhasEmBrancoLivraria.Business.Services;
 using FolhasEmBrancoLivraria.Data.Context;
 using FolhasEmBrancoLivraria.Data.Repository;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
@@ -16,6 +18,11 @@ namespace FolhasEmBrancoLivraria.App.Configurations
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
+
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
+
             return services;
         }
     }

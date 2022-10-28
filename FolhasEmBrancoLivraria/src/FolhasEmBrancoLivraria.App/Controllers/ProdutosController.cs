@@ -11,17 +11,23 @@ using System.IO;
 
 namespace FolhasEmBrancoLivraria.App.Controllers
 {
-    public class ProdutosController : Controller
+    public class ProdutosController : BaseController
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IProdutoService _produtoService;
 
         private readonly IMapper _mapper;
 
-        public ProdutosController(IProdutoRepository produtoRepository, IFornecedorRepository fornecedorRepository, IMapper mapper)
+        public ProdutosController(IProdutoRepository produtoRepository,
+                                  IFornecedorRepository fornecedorRepository,
+                                  IProdutoService produtoService,
+                                  IMapper mapper,
+                                  INotificador notificador) : base(notificador)
         {
             _produtoRepository = produtoRepository;
             _fornecedorRepository = fornecedorRepository;
+            _produtoService = produtoService;
             _mapper = mapper;
         }
 
@@ -69,7 +75,8 @@ namespace FolhasEmBrancoLivraria.App.Controllers
 
             produtoViewModel.Imagem = imgPrefix + produtoViewModel.ImagemUpload.FileName;
 
-            await _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoViewModel));
+            await _produtoService.Adicionar(_mapper.Map<Produto>(produtoViewModel));
+            if (!OperacaoValida()) return View(produtoViewModel);
 
             return RedirectToAction("Index");
         }
@@ -118,7 +125,10 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             atualizacaoProduto.Ano = produtoViewModel.Ano;
             atualizacaoProduto.IsAtivo = produtoViewModel.IsAtivo;
 
-            await _produtoRepository.Atualizar(_mapper.Map<Produto>(atualizacaoProduto));
+            await _produtoService.Atualizar(_mapper.Map<Produto>(atualizacaoProduto));
+
+            if (!OperacaoValida()) return View(produtoViewModel);
+
             return RedirectToAction("Index");
         }
 
@@ -143,7 +153,11 @@ namespace FolhasEmBrancoLivraria.App.Controllers
             var produtoViewModel = await ObterProduto(id);
 
             if (produtoViewModel == null) return NotFound();
-            await _produtoRepository.Remover(id);
+            
+            await _produtoService.Remover(id);
+
+            if (!OperacaoValida()) return View(produtoViewModel);
+            TempData["Sucesso"] = "Produto excluído com sucesso";
 
             return RedirectToAction("Index");
         }
